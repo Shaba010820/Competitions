@@ -7,7 +7,7 @@ services:
     environment:
       - discovery.type=single-node
       - xpack.security.enabled=true
-      - ELASTIC_PASSWORD=changeme123
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
     ports:
       - "9200:9200"
     volumes:
@@ -20,7 +20,7 @@ services:
     container_name: kibana
     environment:
       - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
-      - xpack.security.encryptionKey=some_long_random_key_32_chars_or_more
+      - xpack.security.encryptionKey=${KIBANA_ENCRYPTION_KEY}
       - ELASTICSEARCH_SSL_VERIFICATIONMODE=none
     ports:
       - "5601:5601"
@@ -56,9 +56,9 @@ services:
     image: postgres:15
     container_name: postgres
     environment:
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=secret
-      - POSTGRES_DB=app_db
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
@@ -72,8 +72,8 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - DATABASE_URL=postgresql://admin:secret@postgres:5432/app_db
-      - ELASTICSEARCH_URL=http://elasticsearch:9200
+      - DATABASE_URL=${DATABASE_URL}
+      - ELASTICSEARCH_URL=${ELASTICSEARCH_URL}
     depends_on:
       - postgres
       - elasticsearch
