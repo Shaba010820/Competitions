@@ -15,19 +15,6 @@ services:
     networks:
       - backend_network
 
-  kibana:
-    image: docker.elastic.co/kibana/kibana:9.0.1
-    container_name: kibana
-    environment:
-      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
-      - xpack.security.encryptionKey=${KIBANA_ENCRYPTION_KEY}
-      - ELASTICSEARCH_SSL_VERIFICATIONMODE=none
-    ports:
-      - "5601:5601"
-    depends_on:
-      - elasticsearch
-    networks:
-      - backend_network
 
   nginx:
     image: nginx:alpine

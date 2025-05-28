@@ -1,3 +1,5 @@
+import os
+
 from passlib.context import CryptContext
 from datetime import datetime, timedelta
 from fastapi import Depends, HTTPException, status
@@ -7,9 +9,11 @@ from jose import JWTError, jwt
 from sqlalchemy.orm import Session
 from app.database.session import get_db
 from app.models.refresh import RefreshToken
+from dotenv import load_dotenv
 
+load_dotenv()
 
-SECRET_KEY = 'some_secret'
+SECRET_KEY = os.getenv('JWT_SECRET_KEY')
 ALGORITHM = 'HS256'
 ACCESS_TOKEN_EXPIRE_TIME = 30
 REFRESH_TOKEN_EXPIRE_DAYS = 7
